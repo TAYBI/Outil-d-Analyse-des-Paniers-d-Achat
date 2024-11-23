@@ -41,6 +41,51 @@ class AnalyticsController {
     }
   }
 
+  async getTrendingProducts(req: Request, res: Response) {
+    try {
+      type TrendingProduct = IProduct & {
+        totalQuantity: number;
+        totalAmount: number;
+      };
+      const trendingProducts: TrendingProduct[] = await Sale.aggregate([
+        {
+          $group: {
+            _id: "$ProductID",
+            totalQuantity: { $sum: "$Quantity" },
+            totalAmount: { $sum: "$TotalAmount" },
+          },
+        },
+        { $sort: { totalQuantity: -1 } },
+        { $limit: 3 },
+        {
+          $lookup: {
+            from: "products",
+            localField: "_id",
+            foreignField: "ProductID",
+            as: "product",
+          },
+        },
+        { $unwind: "$product" },
+        {
+          $project: {
+            _id: 0,
+            ProductID: "$_id",
+            ProductName: "$product.ProductName",
+            Category: "$product.Category",
+            totalQuantity: 1,
+            totalAmount: 1,
+          },
+        },
+      ]);
+
+      res.json(trendingProducts);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error fetching trending products", error });
+    }
+  }
+
   async getProducts(req: Request, res: Response) {
     try {
       type ProductWithSales = IProduct & { totalSales: number };
@@ -54,9 +99,7 @@ class AnalyticsController {
           },
         },
         {
-          $addFields: {
-            totalSales: { $sum: "$salesData.Quantity" },
-          },
+          $addFields: { totalSales: { $sum: "$salesData.Quantity" } },
         },
         {
           $project: {
