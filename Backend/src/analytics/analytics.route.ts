@@ -8,6 +8,7 @@ router.get(
   "/analytics/trending_products",
   AnalyticsController.getTrendingProducts
 );
+router.get("/analytics/category_sales", AnalyticsController.getCategorySales);
 router.get("/products", AnalyticsController.getProducts);
 
 export default router;

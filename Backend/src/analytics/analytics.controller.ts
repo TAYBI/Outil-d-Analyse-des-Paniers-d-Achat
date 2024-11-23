@@ -78,11 +78,90 @@ class AnalyticsController {
         },
       ]);
 
-      res.json(trendingProducts);
+      res.json({
+        success: true,
+        data: trendingProducts,
+      });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error fetching trending products", error });
+      res.status(500).json({
+        success: false,
+        message: "Error fetching trending products",
+        error,
+      });
+    }
+  }
+
+  async getCategorySales(req: Request, res: Response) {
+    try {
+      type CategorySales = {
+        category: string;
+        totalSales: number;
+        percentage: number;
+      };
+
+      const categorySales: CategorySales[] = await Sale.aggregate([
+        {
+          $lookup: {
+            from: "products",
+            localField: "ProductID",
+            foreignField: "ProductID",
+            as: "product",
+          },
+        },
+        { $unwind: "$product" },
+
+        {
+          $group: {
+            _id: "$product.Category",
+            totalSales: { $sum: "$Quantity" },
+          },
+        },
+
+        {
+          $group: {
+            _id: null,
+            categories: {
+              $push: { category: "$_id", totalSales: "$totalSales" },
+            },
+            globalTotalSales: { $sum: "$totalSales" },
+          },
+        },
+
+        { $unwind: "$categories" },
+
+        {
+          $project: {
+            _id: 0,
+            category: "$categories.category",
+            totalSales: "$categories.totalSales",
+            percentage: {
+              $round: [
+                {
+                  $multiply: [
+                    {
+                      $divide: ["$categories.totalSales", "$globalTotalSales"],
+                    },
+                    100,
+                  ],
+                },
+                2,
+              ],
+            },
+          },
+        },
+      ]);
+
+      res.json({
+        success: true,
+        count: categorySales.length,
+        data: categorySales,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error fetching trending products",
+        error,
+      });
     }
   }
 
