@@ -1,6 +1,5 @@
 import express, { Application } from "express";
-import productRoutes from "./products/product.route";
-import salesRoutes from "./analytics/sale.route";
+import routes from "./analytics/analytics.route";
 import mongoose from "mongoose";
 import "dotenv/config";
 
@@ -8,8 +7,7 @@ const PORT: number = 3000;
 const MONGO_URI: string = process.env.MONGO_URI || "";
 const app: Application = express();
 
-app.use("/products", productRoutes);
-app.use("/sales", salesRoutes);
+app.use("/", routes);
 
 mongoose.connect(MONGO_URI).then(() => {
   console.log("Connected to database");

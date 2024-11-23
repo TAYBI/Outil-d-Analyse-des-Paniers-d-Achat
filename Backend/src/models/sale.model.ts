@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { IProduct } from "../types";
+import { ISale } from "../types";
 
-const ProductSchema = new mongoose.Schema<IProduct>({
+const SaleSchema = new mongoose.Schema<ISale>({
   SaleID: { type: Number, required: true },
   ProductID: { type: Number, required: true },
   Quantity: { type: Number, required: true },
@@ -9,4 +9,4 @@ const ProductSchema = new mongoose.Schema<IProduct>({
   TotalAmount: { type: Number, required: true },
 });
 
-export const Product = mongoose.model<IProduct>("product", ProductSchema);
+export const Sale = mongoose.model<ISale>("sale", SaleSchema);
