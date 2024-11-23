@@ -1,16 +1,14 @@
-export interface IProduct {
-  _id?: string;
+export interface Product {
   ProductID: number;
   ProductName: string;
   Category: string;
   Price: number;
 }
 
-export interface ISale {
-  _id?: string;
+export interface Sale {
   SaleID: number;
   ProductID: number;
   Quantity: number;
-  Date: Date;
+  Date: string;
   TotalAmount: number;
 }

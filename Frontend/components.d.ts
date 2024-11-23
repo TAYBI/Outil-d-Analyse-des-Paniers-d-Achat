@@ -10,5 +10,12 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     Chart: typeof import('primevue/chart')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    ProductsChart: typeof import('./src/components/ProductsChart.vue')['default']
+    ProductsTable: typeof import('./src/components/ProductsTable.vue')['default']
+    SalesByCategories: typeof import('./src/components/SalesByCategories.vue')['default']
+    SalesCategories: typeof import('./src/components/SalesCategories.vue')['default']
+    SalesProducts: typeof import('./src/components/SalesProducts.vue')['default']
+    TopProducts: typeof import('./src/components/TopProducts.vue')['default']
+    TotalSales: typeof import('./src/components/TotalSales.vue')['default']
   }
 }
