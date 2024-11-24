@@ -1,12 +1,15 @@
 <template>
   <div class="card">
-    <div class="text-center">Ventes par Catégorie</div>
-    <div v-if="loading" class="h-full w-full">
-      <div class="flex h-full w-full gap-3 items-center justify-center">
-        <Skeleton shape="circle" width="20rem" height="20rem"> </Skeleton>
-      </div>
+    <span class="header">Ventes par Catégorie</span>
+    <div class="flex w-full h-full p-2 items-center justify-center">
+      <Skeleton
+        v-if="loading"
+        shape="circle"
+        width="15rem"
+        height="15rem"
+        class="mb-2" />
+      <Chart v-else type="pie" :data="data" class="max-h-[20rem]" />
     </div>
-    <Chart v-else type="pie" :data="data" class="h-full" />
   </div>
 </template>
 

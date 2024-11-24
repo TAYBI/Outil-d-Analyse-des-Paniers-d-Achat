@@ -2,20 +2,15 @@
   <div class="card">
     <DataTable
       :value="products"
-      tableStyle="min-width: 50rem"
-      paginator
       removableSort
-      scrollable
       scrollHeight="400px"
+      size="small"
       :sortOrder="1"
       sortField="Category"
-      :loading="loading"
-      :rows="20">
+      :loading="loading">
       <template #empty> Aucun produit trouvé. </template>
       <template #header>
-        <span class="text-xl font-bold">
-          Top 5 des produits les plus vendus
-        </span>
+        <span class="header"> Top 5 des produits les plus vendus </span>
       </template>
 
       <Column sortable field="ProductName" header="Nom">
@@ -37,7 +32,7 @@
       <Column sortable field="percentage" header="Pourcentage">
         <template #body="slotProps">
           <Skeleton v-if="loading" />
-          <p v-else>{{ slotProps.data.percentage }}%</p>
+          <p class="text-right" v-else>{{ slotProps.data.percentage }} %</p>
         </template>
       </Column>
     </DataTable>
