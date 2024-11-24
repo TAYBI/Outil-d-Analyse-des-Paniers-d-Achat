@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: Analytics API
+  version: 1.0.0
+  description: API endpoints for analyzing sales and product data
+
+servers:
+  - url: /
+    description: Default server
+
+paths:
+  /analytics/total_sales:
+    get:
+      summary: Get total sales amount
+      description: Retrieves the total sales amount within a specified date range
+      tags:
+        - Analytics
+      parameters:
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date
+          description: Start date for filtering sales (default is beginning of time)
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date
+          description: End date for filtering sales (default is current date)
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: number
+                    description: Total sales amount
+                    example: 150000
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error fetching sales"
+                  error:
+                    type: object
+
+  /analytics/trending_products:
+    get:
+      summary: Get trending products
+      description: Retrieves a list of trending products based on sales quantity
+      tags:
+        - Analytics
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 3
+          description: Number of trending products to return
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ProductID:
+                          type: string
+                          example: "P123"
+                        ProductName:
+                          type: string
+                          example: "Product A"
+                        Category:
+                          type: string
+                          example: "Electronics"
+                        totalQuantity:
+                          type: integer
+                          example: 150
+                        totalAmount:
+                          type: number
+                          example: 15000
+                        percentage:
+                          type: number
+                          example: 25.5
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /analytics/category_sales:
+    get:
+      summary: Get sales by category
+      description: Retrieves sales statistics grouped by product category
+      tags:
+        - Analytics
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    example: 5
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        category:
+                          type: string
+                          example: "Electronics"
+                        totalSales:
+                          type: integer
+                          example: 500
+                        percentage:
+                          type: number
+                          example: 35.5
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /products:
+    get:
+      summary: Get all products with sales data
+      description: Retrieves a list of all products including their sales statistics
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    example: 10
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ProductID:
+                          type: string
+                          example: "P123"
+                        ProductName:
+                          type: string
+                          example: "Product A"
+                        Category:
+                          type: string
+                          example: "Electronics"
+                        Price:
+                          type: number
+                          example: 99.99
+                        salesCount:
+                          type: integer
+                          example: 150
+                        date:
+                          type: string
+                          format: date-time
+                          example: "2024-01-01T00:00:00Z"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "Error message"
+        error:
+          type: object
+          description: Error details
