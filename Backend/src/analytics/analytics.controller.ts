@@ -193,7 +193,10 @@ class AnalyticsController {
 
   async getProducts(req: Request, res: Response) {
     try {
-      type ProductWithSales = IProduct & { totalSales: number };
+      type ProductWithSales = IProduct & {
+        salesCount: number;
+        date: Date;
+      };
       const productsWithSales: ProductWithSales[] = await Product.aggregate([
         {
           $lookup: {
@@ -204,7 +207,10 @@ class AnalyticsController {
           },
         },
         {
-          $addFields: { totalSales: { $sum: "$salesData.Quantity" } },
+          $addFields: {
+            salesCount: { $sum: "$salesData.Quantity" },
+            date: { $min: "$salesData.Date" },
+          },
         },
         {
           $project: {
@@ -212,7 +218,8 @@ class AnalyticsController {
             ProductName: 1,
             Category: 1,
             Price: 1,
-            totalSales: 1,
+            salesCount: 1,
+            date: 1,
           },
         },
       ]);
