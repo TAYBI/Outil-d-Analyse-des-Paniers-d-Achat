@@ -7,8 +7,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     Chart: typeof import('primevue/chart')['default']
+    Column: typeof import('primevue/column')['default']
+    DataTable: typeof import('primevue/datatable')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     ProductsChart: typeof import('./src/components/ProductsChart.vue')['default']
     ProductsTable: typeof import('./src/components/ProductsTable.vue')['default']
