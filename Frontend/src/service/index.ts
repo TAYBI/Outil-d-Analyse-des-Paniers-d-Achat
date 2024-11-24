@@ -12,6 +12,14 @@ class Service {
     const data = await response.json();
     return data.data;
   }
+
+  async getTrendingProducts() {
+    const response = await fetch(
+      `${this.URL}/analytics/trending_products?limit=5`
+    );
+    const data = await response.json();
+    return data.data;
+  }
 }
 
 export default new Service();
