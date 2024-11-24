@@ -46,7 +46,21 @@ class AnalyticsController {
       type TrendingProduct = IProduct & {
         totalQuantity: number;
         totalAmount: number;
+        percentage: number;
       };
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 3;
+
+      const totalAmountSum = await Sale.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalAmount: { $sum: "$TotalAmount" },
+          },
+        },
+      ]);
+
+      const totalAmount: number = totalAmountSum[0]?.totalAmount || 0;
+
       const trendingProducts: TrendingProduct[] = await Sale.aggregate([
         {
           $group: {
@@ -55,8 +69,20 @@ class AnalyticsController {
             totalAmount: { $sum: "$TotalAmount" },
           },
         },
+        {
+          $addFields: {
+            percentage: {
+              $round: [
+                {
+                  $multiply: [{ $divide: ["$totalAmount", totalAmount] }, 100],
+                },
+                2,
+              ],
+            },
+          },
+        },
         { $sort: { totalQuantity: -1 } },
-        { $limit: 3 },
+        { $limit: limit },
         {
           $lookup: {
             from: "products",
@@ -74,10 +100,10 @@ class AnalyticsController {
             Category: "$product.Category",
             totalQuantity: 1,
             totalAmount: 1,
+            percentage: 1,
           },
         },
       ]);
-
       res.json({
         success: true,
         data: trendingProducts,
