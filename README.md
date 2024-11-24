@@ -1,8 +1,8 @@
-### Outil Simplifié d'Analyse des Paniers d'Achat
+# Outil Simplifié d'Analyse des Paniers d'Achat
 
 ---
 
-#### 📌 **Description**
+## 📌 **Description**
 
 outil d'analyse pour aider un administrateur de site e-commerce à obtenir
 des informations simples sur les produits les plus vendus, la répartition des ventes par
@@ -10,7 +10,7 @@ catégorie, et les tendances de ventes
 
 ---
 
-### 🚀 **Prérequis**
+## 🚀 **Prérequis**
 
 - **Node.js** (20 ou supérieur)
 - **MongoDB** (local ou cloud)
@@ -18,7 +18,7 @@ catégorie, et les tendances de ventes
 
 ---
 
-### ⚙️ **Installation**
+## ⚙️ **Installation**
 
 #### 1. **Clonez le dépôt :**
 
@@ -45,7 +45,25 @@ npm install
 
 ---
 
-### 💻 **Lancement de l'Application**
+## 🔧 **Configuration des Fichiers `.env` :**
+
+Pour que l'application fonctionne correctement, veuillez créer un fichier `.env` dans les répertoires **Backend** et **Frontend** avec les variables d'environnement suivantes :
+
+#### **Backend (`Backend/.env`) :**
+
+```plaintext
+MONGO_URI=mongoconnection  # Remplacez par l'URL de connexion MongoDB
+```
+
+#### **Frontend (`Frontend/.env`) :**
+
+```plaintext
+VITE_API=apiurl  # Remplacez par l'URL  d'API Backend
+```
+
+---
+
+## 💻 **Lancement de l'Application**
 
 #### **Démarrer le Backend :**
 
@@ -67,7 +85,7 @@ Par défaut, l'application est accessible sur `http://localhost:5173/`.
 
 ---
 
-### 🌐 **Documentation de l'API**
+## 🌐 **Documentation de l'API**
 
 L'API est documentée via **Swagger**. Pour consulter la documentation interactive :
 `http://localhost:3000/docs`
@@ -95,7 +113,7 @@ Ou en ligne :
 
 ---
 
-### 📊 **Fonctionnalités Clés**
+## 📊 **Fonctionnalités Clés**
 
 - **Tableau de bord interactif** affichant :
   - Ventes totales
@@ -106,6 +124,6 @@ Ou en ligne :
 
 ---
 
-### 📄 **Licence**
+## 📄 **Licence**
 
 Ce projet est sous licence MIT.
