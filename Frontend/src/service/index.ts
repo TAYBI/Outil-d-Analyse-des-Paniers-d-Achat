@@ -1,5 +1,5 @@
 class Service {
-  readonly URL: string = "http://localhost:3000";
+  readonly URL: string = import.meta.env.VITE_API as string;
 
   async getTotalSales(startDate: string = "", endDate: string = "") {
     const response = await fetch(
