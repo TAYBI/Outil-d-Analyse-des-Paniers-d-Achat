@@ -15,6 +15,7 @@ declare module 'vue' {
     SalesByCategories: typeof import('./src/components/SalesByCategories.vue')['default']
     SalesCategories: typeof import('./src/components/SalesCategories.vue')['default']
     SalesProducts: typeof import('./src/components/SalesProducts.vue')['default']
+    Skeleton: typeof import('primevue/skeleton')['default']
     TopProducts: typeof import('./src/components/TopProducts.vue')['default']
     TotalSales: typeof import('./src/components/TotalSales.vue')['default']
   }
