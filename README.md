@@ -69,12 +69,11 @@ Par défaut, l'application est accessible sur `http://localhost:5173/`.
 
 ### 🌐 **Documentation de l'API**
 
-L'API est documentée via **Swagger**. Pour consulter la documentation interactive :  
+L'API est documentée via **Swagger**. Pour consulter la documentation interactive :
 `http://localhost:3000/docs`
 
-OU BIEN en line sure
-
-`https://app.swaggerhub.com/apis-docs/BILALTAYBI36/OutilAnalyse/1.0.0`
+Ou en ligne :
+[https://app.swaggerhub.com/apis-docs/BILALTAYBI36/OutilAnalyse/1.0.0](https://app.swaggerhub.com/apis-docs/BILALTAYBI36/OutilAnalyse/1.0.0)
 
 **Endpoints Principaux :**
 
