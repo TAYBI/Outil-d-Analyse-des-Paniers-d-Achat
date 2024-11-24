@@ -1,17 +1,12 @@
 <template>
-  <div class="w-full h-full">
+  <div class="card">
     <div v-if="loading" class="h-full w-full">
       <div class="text-center">Totales des ventes par produit</div>
       <div class="flex h-full gap-3 w-full">
         <Skeleton v-for="i in 30" :key="i" height="95%"> </Skeleton>
       </div>
     </div>
-    <Chart
-      v-else
-      type="bar"
-      :data="data"
-      :options="options"
-      class="h-[30rem]" />
+    <Chart v-else type="bar" :data="data" class="h-full" />
   </div>
 </template>
 
@@ -21,7 +16,6 @@ import service from "../service";
 import { Product } from "../types";
 
 const data = ref({});
-const options = ref({});
 const products = ref<(Product & { totalSales: number })[]>([]);
 const loading = ref(false);
 
@@ -42,47 +36,6 @@ onMounted(async () => {
     ],
   };
 
-  options.value = setOptions();
   loading.value = false;
 });
-
-const setOptions = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
-  const textColor = documentStyle.getPropertyValue("--p-text-color");
-  const textColorSecondary = documentStyle.getPropertyValue(
-    "--p-text-muted-color"
-  );
-  const surfaceBorder = documentStyle.getPropertyValue(
-    "--p-content-border-color"
-  );
-
-  return {
-    plugins: {
-      legend: {
-        labels: {
-          color: textColor,
-        },
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: textColorSecondary,
-        },
-        grid: {
-          color: surfaceBorder,
-        },
-      },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          color: textColorSecondary,
-        },
-        grid: {
-          color: surfaceBorder,
-        },
-      },
-    },
-  };
-};
 </script>
