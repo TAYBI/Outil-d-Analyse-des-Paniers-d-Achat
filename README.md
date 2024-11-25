@@ -85,6 +85,59 @@ Par défaut, l'application est accessible sur `http://localhost:5173/`.
 
 ---
 
+## 📂 **Structure du Projet**
+
+```
+├───Backend
+│   │   package-lock.json
+│   │   package.json
+│   │   tsconfig.json
+│   │
+│   └───src
+│       │   server.ts
+│       │   swagger.yaml
+│       │
+│       ├───analytics
+│       │       analytics.controller.ts
+│       │       analytics.model.ts
+│       │       analytics.route.ts
+│       │
+│       ├───models
+│       │       product.model.ts
+│       │       sale.model.ts
+│       │
+│       └───types
+│               index.ts
+│
+└───Frontend
+    └───src
+        │   App.vue
+        │   main.ts
+        │   vite-env.d.ts
+        │
+        ├───assets
+        │       style.css
+        │       vue.svg
+        │
+        ├───components
+        │       ProductsChart.vue
+        │       ProductsTable.vue
+        │       SalesByCategories.vue
+        │       TopProducts.vue
+        │       TotalSales.vue
+        │
+        ├───service
+        │       index.ts
+        │
+        ├───types
+        │       index.ts
+        │
+        └───views
+                Dashboard.vue
+```
+
+---
+
 ## 🌐 **Documentation de l'API**
 
 L'API est documentée via **Swagger**. Pour consulter la documentation interactive :
